@@ -1,0 +1,100 @@
+﻿@model  BO.Address.AddresBO  
+@{
+    
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li><a href="@Url.Action("Customer", "Home")">Customer</a></li>
+            <li><a href="@Url.Action("Address12", "Home")">Adress</a></li>
+            <li><a href="@Url.Action("Product", "Home")">Product</a></li>
+            <li><a href="@Url.Action("Orders", "Home")">Orders</a></li>
+        </ul>
+    </div>
+</nav>
+<body>
+    <div class="container">
+        <form class="form-inline" action="/action_page.php">
+            <div class="form-group">
+                <label for="Addres">AddressType:</label>
+                <select class="form-control" style="margin-left:7px;"id="addrestype">
+                    <option>TemporaryAddress</option>
+                    <option>PermanentAddress</option>
+                </select>
+            </div>
+            <br /><br />
+            <div class="form-group">
+                <label for="addres">Addres:</label>
+                <input type="text" class="form-control" style="margin-left:33px;" id="addres" name="addres">
+            </div>
+            <br /><br />
+            <div class="form-group">
+                <label for="city">City:</label>
+                <input type="text" class="form-control" style="margin-left:55px;" id="city" name="city">
+            </div>
+            <br /><br />
+            <div class="form-group">
+                <label for="state">State:</label>
+                <input type="text" class="form-control" style="margin-left:49px;" id="state" name="state">
+            </div>
+            <br /><br />
+            <div class="form-group">
+
+                <label for="country">Country:</label>
+                <input type="text" class="form-control" style="margin-left:28px;" id="country" name="country">
+            </div>
+            <br /><br />
+            <div class="form-group">
+                <label for="pincode">Pincode:</label>
+                <input type="number" class="form-control" style="margin-left:28px;" id="pincode" name="pincode">
+            </div>
+            <br /><br />
+            <button type="button" class="btn btn-default" id="btnSav" style="margin-left:48px;">Submit</button>
+            <button type="reset" class="btn btn-default" style="margin-left:11px;">Reset</button>
+        </form>
+    </div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $("#btnSav").click(function () {
+            debugger;
+            var Addr =
+                {
+                    AddressType: $("#addrestype").val(),
+                    Address: $("#addres").val(),
+                    City: $("#city").val(),
+                    State: $("#state").val(),
+                    Country: $("#country").val(),
+                    pincode: $("#pincode").val(),
+                };
+            $.ajax({
+                url: '/Api/Address/insertAddres',
+                type: 'POST',
+                data: JSON.stringify(Addr),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    alert(result);
+                    window.location = '/Home/Product/';
+                },
+                error: function (xhr) {
+                    alert('Error: ' + xhr.statusText);
+                },
+            });
+        });
+       
+     });
+   
+</script>
+

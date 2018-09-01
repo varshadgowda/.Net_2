@@ -1,0 +1,205 @@
+﻿@model BO.Product.ProductBO
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li><a href="@Url.Action("Customer", "Home")">Customer</a></li>
+            <li><a href="@Url.Action("Address12", "Home")">Adress</a></li>
+            <li><a href="@Url.Action("Product", "Home")">Product</a></li>
+            <li><a href="@Url.Action("Orders", "Home")">Orders</a></li>
+        </ul>
+    </div>
+</nav>
+<body>
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "ProductId" }))
+    {
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.Label("ProductName :")
+                            @Html.TextBoxFor(model => model.ProductName, new { style = "margin-left: 38px;", id="pronam"})
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.Label("ProductDescription :")
+                            @Html.TextBoxFor(model => model.ProductDescription, new { style = "margin-left: 38px;", id="prodes"})
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.Label("Size :")
+                            @Html.DropDownListFor(modelItem => Model.Size, new List<SelectListItem>
+                              { new SelectListItem { Text = "Small", Value = "Small" },
+                                new SelectListItem { Text = "Medium", Value = "Medium" },
+                                new SelectListItem { Text = "Large", Value = "Large" },
+                                new SelectListItem { Text = "XL", Value = "XL" },
+                                new SelectListItem { Text = "XXL", Value = "XXL" }}, "Please select", new { style = "margin-left: 104px;width: 165px;height: 27px;", id = "siz" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.Label("UnitPrice :")
+                            @Html.TextBoxFor(modelItem => Model.UnitPrice, new { style = "margin-left:78px;", id = "unit" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.Label("QualityType :")
+                            @Html.DropDownListFor(modelItem => Model.QualityType, new List<SelectListItem>
+                              { new SelectListItem {Text="Cotton", Value="Cotton"},
+                                new SelectListItem {Text="Silk", Value="Silk"},
+                                new SelectListItem {Text="Wodden",Value="Wodden"},
+                                new SelectListItem {Text="Glass",Value="Glass"},
+                                new SelectListItem {Text="Tupperware",Value="TupperWare"},
+                                new SelectListItem {Text="Steels", Value="Steels"}}, "Please select", new { style = "margin-left: 53px;width: 165px;height: 27px;", id = "qual" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.Label("Discount :")
+                            @Html.TextBoxFor(modelItem => Model.Discount, new { style = "margin-left: 81px;", id = "dis" })
+                        </div>
+                    </div>
+                </div>
+                <br/><br/>
+                <button type="button" class="btn btn-success" id="btnad" style="margin-left: 57px;width: 81px;height: 40px;">Add</button>
+            </div>
+        </div>
+        <div class="panel panel-default" id="dishid">
+            <div class="panel-body">
+                <div class="form-group">
+                    <table class="apps">
+                        <tbody>
+                        <tr id="color">
+                            <th>Size:</th>
+                            <th>UnitPrice:</th>
+                            <th>QualityType:</th>
+                            <th>Discount:</th>
+                        </tr>
+                        <tr>
+                            <td><span></span></td>
+                            <td><span></span></td>
+                            <td><span></span></td>
+                            <td><span></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+            <button type="button" class="btn btn-info" id="subt" style="margin-left: 25px;width: 81px;height: 40px;">Submit</button>
+            <button type="button" class="btn btn-warning" style="margin-left: 15px;width: 81px;height: 40px;">Clear</button>
+        </div>
+    }
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $("#dishid").hide();
+        $("#btnad").on('click', function () {
+            debugger;
+            $("#dishid").show();
+            var data = $("#ProductId").serialize();
+            $.ajax({
+                url: '/Home/TestData',
+                type: 'POST',
+                data:data,
+                dataType:'html',
+                success: function (result) {
+                    debugger;
+                    $("#dishid").empty();
+                    $("#dishid").append(result);
+                    $("#siz").val('');
+                    $("#unit").val('');
+                    $("#qual").val('');
+                    $("#dis").val('');
+                },
+                error: function (xhr) {
+                    debugger;
+                    alert('Error: ' + xhr.statusText);
+                },
+            });
+        });
+        $("#subt").on('click', function () {
+            debugger;
+            var data = $("#ProductId").serialize();
+            $.ajax({
+                url: '/Api/Product/insertProduct',
+                type: 'POST',
+                data: data,
+                dataType: 'json',
+                success: function (result) {
+                    debugger;
+                    $("#dishid").empty();
+                    $("#dishid").append(result);
+                    window.location = '/Home/Orders/';
+                },
+                error: function (xhr) {
+                    debugger;
+                    alert('Error: ' + xhr.statusText);
+                },
+            });
+        });
+        
+
+    });
+   
+</script>
+<style>
+    .apps {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
+    }
+    #color
+    {
+        background-color: #f2f2f2;
+        border: 1px solid #ddd;
+        padding: 8px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+        height:40px;
+    }
+    .colors {
+        background-color: #ddd;
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+        color: white;
+    }
+</style>
+
+
+
+
+
+
+

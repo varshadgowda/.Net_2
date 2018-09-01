@@ -1,0 +1,12 @@
+E:\EFW\UserRegistration\Data Repository\bin\Debug\Data Repository.dll.config
+E:\EFW\UserRegistration\Data Repository\bin\Debug\Data Repository.dll
+E:\EFW\UserRegistration\Data Repository\bin\Debug\Data Repository.pdb
+E:\EFW\UserRegistration\Data Repository\bin\Debug\BO.dll
+E:\EFW\UserRegistration\Data Repository\bin\Debug\EntityFramework.dll
+E:\EFW\UserRegistration\Data Repository\bin\Debug\EntityFramework.SqlServer.dll
+E:\EFW\UserRegistration\Data Repository\bin\Debug\BO.pdb
+E:\EFW\UserRegistration\Data Repository\bin\Debug\EntityFramework.xml
+E:\EFW\UserRegistration\Data Repository\bin\Debug\EntityFramework.SqlServer.xml
+E:\EFW\UserRegistration\Data Repository\obj\Debug\Data_Repository.csprojResolveAssemblyReference.cache
+E:\EFW\UserRegistration\Data Repository\obj\Debug\Data Repository.dll
+E:\EFW\UserRegistration\Data Repository\obj\Debug\Data Repository.pdb

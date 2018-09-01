@@ -1,0 +1,88 @@
+﻿
+@{
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li><a href="@Url.Action("Customer", "Home")">Customer</a></li>
+           
+             <li><a href="@Url.Action("Address12", "Home")">Address</a></li>
+            <li><a href="@Url.Action("Product", "Home")">Product</a></li>
+            <li><a href="@Url.Action("Orders", "Home")">Orders</a></li>
+        </ul>
+    </div>
+</nav>
+<body>
+    <div class="container">
+        <form class="form-inline" action="/action_page.php">
+            <div class="form-group">
+                <label for="firstname">FirstName:</label>
+                <input type="text" class="form-control" style="margin-left:34px;" id="firstname" name="firstname">
+            </div>
+            <br /><br />
+            <div class="form-group">
+                <label for="lastname">LastName:</label>
+                <input type="text" class="form-control" style="margin-left:34px;" id="lastname" name="lastname">
+            </div>
+            <br /><br />
+            <div class="form-group">
+                <label for="Email">Email:</label>
+                <input type="email" class="form-control" style="margin-left:64px;" id="email" name="email">
+            </div>
+            <br /><br />
+            <div class="form-group">
+                <label for="phonenumber">PhoneNumber:</label>
+                <input type="number" class="form-control" style="margin-left:6px;" id="number" name="number">
+            </div>
+            <br /><br />
+            <button type="button" class="btn btn-default" id="btnSave" style="margin-left:48px;">Submit</button>
+            <button type="reset" class="btn btn-default" style="margin-left:11px;">Reset</button>
+        </form>
+    </div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $("#btnSave").click(function () {
+            debugger;
+            var Cust =
+            {
+                FirstName: $("#firstname").val(),
+                LastName: $("#lastname").val(),
+                Email: $("#email").val(),
+                PhoneNumber: $("#number").val()
+            };
+
+            $.ajax({
+                url: '/Api/Customer/insertCustomer/',
+                type: 'POST',
+                data: JSON.stringify(Cust),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (result)
+                {
+                    alert (result)
+                    window.location ='/Home/Datastore/';
+                },
+                error: function (xhr) {
+                    alert('Error: ' + xhr.statusText);
+                },
+            });
+
+        });
+       
+    });
+
+</script>

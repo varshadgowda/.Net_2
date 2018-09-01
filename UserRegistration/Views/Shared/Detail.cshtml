@@ -1,0 +1,95 @@
+﻿@model BO.Order.OrderBO
+<div class="panel-body">
+    <div class="form-group">
+        <table class="apps">
+            <tbody>
+                <tr id="color">
+                    <th>OrderQuantity:</th>
+                    <th>IndividualPriceOfProduct:</th>
+                    <th>TotalAmount:</th>
+                    <th>TotalDiscount:</th>
+                    <th>TotalPrice</th>
+                    <th>OrderDeliveryDate</th>
+                    <th>OrderStatus</th>
+                </tr>
+                @{
+                    int Id = 0;
+                 }
+                 @foreach (var item in Model.orderdetails)
+                    {
+                        <tr>
+                            <td>
+                                <input name="ProductID" id="OrderDetailBO_@(Id)__ProductID" type="hidden" value="@item.ProductID">
+                                <input name="OrderQuantity[@(Id)].OrderQuantity" id="OrderDetailBO_@(Id)__OrderQuantity" type="hidden" value="@item.OrderQuantity">
+                                <input name="OrderDetailBO[@(Id)].IndividualPriceOfProduct" id="OrderDetailBO_@(Id)IndividualPriceOfProduct" type="hidden" value="@item.IndividualPriceOfProduct">
+                                <input name="OrderDetailBO[@(Id)].TotalAmount" id="OrderDetailBO_@(Id)TotalAmount" type="hidden" value="@item.TotalAmount">
+                                <input name="OrderDetailBO[@(Id)].TotalDiscount" id="OrderDetailBO_@(Id)TotalDiscount" type="hidden" value="@item.TotalDiscount">
+                                <input name="OrderDetailBO[@(Id)].TotalPrice" id="OrderDetailBO_@(Id)TotalPrice" type="hidden" value="@item.TotalPrice" />
+                                <input name="OrderDetailBO[@(Id)].OrderDeliveryDate" id="OrderDetailBO_@(Id)OrderDeliveryDate" type="hidden" value="@item.OrderDeliveryDate" />
+                                <input name="OrderDetailBO[@(Id)].OrderStatus" id="OrderDetailBO_@(Id)OrderStatus" type="hidden" value="@item.OrderStatus" />
+                                <span>@item.OrderQuantity</span>
+                            </td>
+                            <td><span>@item.IndividualPriceOfProduct</span></td>
+                            <td><span>@item.TotalAmount</span></td>
+                            <td><span>@item.TotalDiscount</span>
+                            <td><span>@item.TotalPrice</span>
+                            <td><span>@item.OrderDeliveryDate</span>
+                            <td><span>@item.OrderStatus</span>
+                                <button type="button" class="btndele">Delete</button>
+                                
+                            </td>
+                        </tr>
+                        Id++;
+                    }
+               
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".btndele").on('click', function () {
+            debugger;
+            var id = $(this).closest('td').parent()[0].sectionRowIndex;
+            var ord = $("#OrderId").serialize();
+            $.ajax({
+                url: "/Home/Deletes/" + id,
+                type: 'POST',
+                data: ord,
+                dataType: 'html',
+                success: function (result) {
+                    debugger;
+                    $("#disord").empty();
+                    $("#disord").append(result);
+                },
+                error: function (xhr) {
+                    debugger;
+                    alert('Error: ' + xhr.statusText);
+                },
+            });
+        });
+        $(".btnedit").on('click', function () {
+            debugger;
+            var ord = $("#OrderId").serialize();
+            var id = $(this).closest('td').parent()[0].sectionRowIndex;
+            $.ajax({
+                url: "/Home/Edit/" + id,
+
+                type: 'POST',
+                data: ord,
+                dataType: 'html',
+                success: function (result) {
+                    debugger;
+                    $("#disord").empty();
+                    $("#disord").append(result);
+                },
+                error: function (xhr) {
+                    debugger;
+                    alert('Error: ' + xhr.statusText);
+                },
+            });
+        })
+        });
+</script>
+

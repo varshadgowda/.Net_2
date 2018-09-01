@@ -1,0 +1,61 @@
+﻿@model BO.Product.ProductBO
+    @{ 
+        int Id = 0;
+    }
+    @foreach (var item in Model.DescriptionBO)
+    {
+        <input name="DescriptionBO[@(Id)].Size" id="DescriptionBO_@(Id)__Size" type="hidden" value="@item.Size">
+        <input name="DescriptionBO[@(Id)].UnitPrice" id="DescriptionBO_@(Id)UnitPrice" type="hidden" value="@item.UnitPrice">
+        <input name="DescriptionBO[@(Id)].QualityType" id="DescriptionBO_@(Id)QualityType" type="hidden" value="@item.QualityType">
+        <input name="DescriptionBO[@(Id)].Discount" id="DescriptionBO_@(Id)Discount" type="hidden" value="@item.Discount">
+        @if (Model.ID == item.ID)
+        {
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.Label("Size :")
+                                @Html.DropDownListFor(modelItem => Model.Size, new List<SelectListItem>
+                              { new SelectListItem { Text = "Small", Value = "Small" },
+                                new SelectListItem { Text = "Medium", Value = "Medium" },
+                                new SelectListItem { Text = "Large", Value = "Large" },
+                                new SelectListItem { Text = "XL", Value = "XL" },
+                                new SelectListItem { Text = "XXL", Value = "XXL" }}, "Please select", new { style = "margin-left: 104px;width: 165px;height: 27px;", id = "siz" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.Label("UnitPrice :", new { style = "margin -left: 22px;" })
+                                @Html.TextBoxFor(modelItem => Model.UnitPrice, new { style = "margin-left:78px;", id = "unit" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.Label("QualityType :")
+                                @Html.DropDownListFor(modelItem => Model.QualityType, new List<SelectListItem>
+                              { new SelectListItem {Text="Cotton", Value="Cotton"},
+                                new SelectListItem {Text="Silk", Value="Silk"},
+                                new SelectListItem {Text="Wodden",Value="Wodden"},
+                                new SelectListItem {Text="Glass",Value="Glass"},
+                                new SelectListItem {Text="Tupperware",Value="TupperWare"},
+                                new SelectListItem {Text="Steels", Value="Steels"}}, "Please select", new { style = "margin-left: 53px;width: 165px;height: 27px;", id = "qual" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.Label("Discount :")
+                                @Html.TextBoxFor(modelItem => Model.Discount, new { style = "margin-left: 81px;", id = "dis" })
+                            </div>
+                        </div>
+                    </div>
+                    <br /><br />
+                    <button type="button" class="btn btn-success" id="btnad" style="margin-left: 57px;width: 81px;height: 40px;">Add</button>
+                </div>
+            </div>
+        }
+
+        Id++;
+    }

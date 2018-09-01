@@ -1,0 +1,122 @@
+﻿@model BO.Product.ProductBO 
+
+    <div class="panel-body">
+        <div class="form-group">
+            <table class="apps">
+                <tbody>
+                    <tr id="color">
+                        <th>Size:</th>
+                        <th>UnitPrice:</th>
+                        <th>QualityType:</th>
+                        <th>Discount:</th>
+                    </tr>
+                    @{
+                        int Id = 0;
+                    }
+                    @foreach (var item in Model.DescriptionBO)
+                    {
+                    <tr id="submit">
+                       
+                        <td>
+                            <input name="DescriptionBO[@(Id)].Size" id="DescriptionBO_@(Id)__Size" type="hidden" value="@item.Size">
+                            <input name="DescriptionBO[@(Id)].UnitPrice" id="DescriptionBO_@(Id)UnitPrice" type="hidden" value="@item.UnitPrice">
+                            <input name="DescriptionBO[@(Id)].QualityType" id="DescriptionBO_@(Id)QualityType" type="hidden" value="@item.QualityType">
+                            <input name="DescriptionBO[@(Id)].Discount" id="DescriptionBO_@(Id)Discount" type="hidden" value="@item.Discount">
+                            <span>@item.Size</span>
+                        </td>
+                        
+                        <td>
+                            <span>
+                                <input name="DescriptionBO[@(Id)].UnitPrice" id="DescriptionBO_@(Id)UnitPrice" type="text" value="@item.UnitPrice" readonly>
+                            </span>
+                        @*<span>@item.UnitPrice</span></td>*@
+                        <td>
+                            <span>
+                                <input name="DescriptionBO[@(Id)].QualityType" id="DescriptionBO_@(Id)QualityType" type="text" value="@item.QualityType" readonly>
+                            </span>
+                            @*<span>@item.QualityType</span>*@
+                        </td>
+                        <td>
+                            <span>
+                                <input name="DescriptionBO[@(Id)].Discount" id="DescriptionBO_@(Id)Discount" type="text" value="@item.Discount" readonly>
+                            </span>
+                            @*<span>@item.Discount</span>*@
+                        </td>
+                        <td>
+                            <button type="button" class="btndel">Delete</button>
+                            <button type="button" class="edit">Edit</button>
+                            <button type="button" class="update">Save</button>
+                        </td>
+                        
+                    </tr>
+                    
+                        Id++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<script>
+    $(document).ready(function () {
+        $(".update").hide();
+        $(".btndel").on('click', function () {
+            debugger;
+            var id = $(this).closest('td').parent()[0].sectionRowIndex;
+            var data = $("#ProductId").serialize();
+            $.ajax({
+                url: "/Home/Delete/" + id,
+
+                type: 'POST',
+                data: data,
+                dataType: 'html',
+                success: function (result) {
+                    debugger;
+                    $("#dishid").empty();
+                    $("#dishid").append(result);
+                },
+                error: function (xhr) {
+                    debugger;
+                    alert('Error: ' + xhr.statusText);
+                },
+            });
+        });
+        $(".edit").on('click', function () {
+            var data = $("#ProductId").serialize();
+            var id = $(this).closest('td').parent()[0].sectionRowIndex;
+            $(".edit").hide();
+            $(".update").show();
+            edit = true;
+            $('#submit :input').each(function () {
+                debugger;
+                $(this).attr('disabled', false);
+            });
+            $('.update').live('click', function () {
+                edit = false;
+                $('#submit :input').each(function () {
+                    $(this).attr('disabled', true);
+                });
+            });
+        });
+
+
+       
+        $.ajax({
+            url: "/Home/Edit/" + id,
+
+            type: 'POST',
+            data: data,
+            dataType: 'html',
+            success: function (result) {
+                debugger;
+                $("#dishid").empty();
+                $("#dishid").append(result);
+            },
+            error: function (xhr) {
+                debugger;
+                alert('Error: ' + xhr.statusText);
+            },
+        });
+    });
+</script>
+

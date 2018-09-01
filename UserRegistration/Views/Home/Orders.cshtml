@@ -1,0 +1,255 @@
+﻿@model BO.Order.OrderBO
+@{
+    
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li><a href="@Url.Action("Customer", "Home")">Customer</a></li>
+            <li><a href="@Url.Action("Address12", "Home")">Adress</a></li>
+            <li><a href="@Url.Action("Product", "Home")">Product</a></li>
+            <li><a href="@Url.Action("Orders", "Home")">Orders</a></li>
+        </ul>
+    </div>
+</nav>
+<body>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "OrderID" }))
+{
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.Label("OrderNumber :")
+                            @Html.TextBoxFor(model => model.OrderNumber, new { style = "margin-left: 12px;", id = "pronam" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.Label("OrderDate :")
+                            @Html.TextBoxFor(model => model.OrderDate, new { style = "margin-left: 38px;", id = "prodes" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.Label("Address :")
+                            @Html.DropDownListFor(model => model.AddresID, new List<SelectListItem>
+                              { new SelectListItem { Text = "Bangalore", Value = "140" },
+                                new SelectListItem { Text = "Mysore", Value = "139" },
+                                new SelectListItem { Text = "Chennai", Value = "142" },
+                                new SelectListItem { Text = "Chanakyapuri", Value = "143" },
+                                new SelectListItem { Text = "Hyderabad", Value = "144" },
+                                new SelectListItem { Text = "Amrithsar", Value = "145" }}, "Please select", new { style = "margin-left: 50px;width: 165px;height: 27px;", id = "prdn" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.Label("Amount :")
+                            @Html.TextBoxFor(model => model.Amount, new { style = "margin-left: 76px;", id = "prodes" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.Label("Discount :")
+                            @Html.TextBoxFor(model => model.Discount, new { style = "margin-left: 47px;", id = "prodes" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.Label("ProductName :")
+                            @Html.DropDownListFor(modelItem => Model.OrderDetailBO.ProductID, new List<SelectListItem>
+                              { new SelectListItem { Text = "Apparels", Value = "6" },
+                                new SelectListItem { Text = "KitchenAppliances", Value = "34" },
+                                new SelectListItem { Text = "InteriorDesign", Value = "35" }}, "Please select", new { style = "margin-left: 96px;width: 165px;height: 27px;", id = "prdn" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.Label("OrderQuantity :")
+                            @Html.TextBoxFor(modelItem => Model.OrderDetailBO.OrderQuantity, new { style = "margin-left: 42px;", id = "quan" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.Label("IndividualPriceOfProduct :")
+                            @Html.TextBoxFor(modelItem => Model.OrderDetailBO.IndividualPriceOfProduct, new { style = "margin-left:18px;", id = "prce" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.Label("TotalAmount :")
+                            @Html.TextBoxFor(modelItem => Model.OrderDetailBO.TotalAmount, new { style = "margin-left: 53px;", id = "amt" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.Label("TotalDiscount :")
+                            @Html.TextBoxFor(modelItem => Model.OrderDetailBO.TotalDiscount, new { style = "margin-left: 95px;", id = "tdis" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.Label("TotalPrice :")
+                            @Html.TextBoxFor(modelItem => Model.OrderDetailBO.TotalPrice, new { style = "margin-left: 71px;", id = "tpri" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.Label("OrderDeliveryDate :")
+                            @Html.TextBoxFor(modelItem => Model.OrderDetailBO.OrderDeliveryDate, new { style = "margin-left: 65px;", id = "deli" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.Label("OrderStatus :")
+                            @Html.TextBoxFor(modelItem => Model.OrderDetailBO.OrderStatus, new { style = "margin-left: 57px;", id = "odst" })
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" value="@ViewBag.hdnFlag" id="hdnFlag" />
+                
+                <button type="button" class="btn btn-success" id="btnadd" style="margin-left: 57px;width: 81px;height: 40px;">Add</button>
+            </div>
+        </div>
+        <div class="panel-panel-default" id="disord">
+            <div class="panel-body">
+                <div class="form-group">
+                    <table class="apps">
+                        <tbody>
+                            <tr id="color">
+                                <th>OrderQuantity:</th>
+                                <th>IndividualPriceOfProduct:</th>
+                                <th>TotalAmount:</th>
+                                <th>TotalDiscount:</th>
+                                <th>TotalPrice:</th>
+                                <th>OrderDeliveryDate:</th>
+                                <th>OrderStatus:</th>
+                            </tr>
+                            <tr>
+                                <td><span></span></td>
+                                <td><span></span></td>
+                                <td><span></span></td>
+                                <td><span></span></td>
+                                <td><span></span></td>
+                                <td><span></span></td>
+                                <td><span></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+            <button type="button" class="btn btn-info" id="btnSet" style="margin-left:117px;">Submit</button>
+            <button type="reset" class="btn btn-warning" style="margin-left:11px;">Reset</button>
+    </div>
+}
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $("#disord").hide();
+        $("#btnadd").on('click', function () {
+            debugger;
+            $("#disord").show();
+            var odr = $("#OrderID").serialize();
+            $.ajax({
+                url: '/Home/TestOrder',
+                type: 'POST',
+                data: odr,
+                dataType: 'html',
+                success: function (result) {
+                    debugger;
+                    $("#disord").empty();
+                    $("#disord").append(result);
+                    $("#prdn").val('');
+                    $("#quan").val('');
+                    $("#prce").val('');
+                    $("#amt").val('');
+                    $("#tdis").val('');
+                    $("#tpri").val('');
+                    $("#deli").val('');
+                    $("#odst").val('');
+                },
+                error: function (xhr) {
+                    alert('Error: ' + xhr.statusText);
+                },
+            });
+        });
+        $("#btnSet").on('click', function () {
+            debugger;
+            var odr = $("#OrderID").serialize();
+            debugger;
+            var hdnFlagVal = $("#hdnFlag").val();
+            $.ajax({
+                url: '/Home/Save',
+                type: 'POST',
+                data: odr,
+                dataType: 'json',
+                success: function (result) {
+                    debugger;
+                    $("#disord").empty();
+                    $("#disord").append(result);
+                    window.location = '/Home/Customer/';
+                },
+                error: function (xhr) {
+                    debugger;
+                    alert('Error: ' + xhr.statusText);
+                },
+            });
+        });
+    });
+</script>
+<style>
+    .apps {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
+    }
+
+    #color {
+        background-color: #f2f2f2;
+        border: 1px solid #ddd;
+        padding: 8px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+        height: 40px;
+    }
+
+    .colors {
+        background-color: #ddd;
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+        color: white;
+    }
+</style>
